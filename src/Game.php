@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Hangman;
 
@@ -10,29 +11,29 @@ class Game
     protected $letters_guessed;
     protected $attempts;
 
-    public function __construct($secret_word)
+    public function __construct(string $secret_word)
     {
         $this->secret_word = $secret_word;
         $this->letters_guessed = [];
         $this->attempts = count(StringHelper::explode_unique($this->secret_word)) + self::MAX_FAILED_ATTEMPTS;
     }
 
-    public function get_remaining_attempts()
+    public function get_remaining_attempts(): int
     {
         return $this->attempts;
     }
 
-    public function has_remaining_attempts()
+    public function has_remaining_attempts(): bool
     {
         return $this->get_remaining_attempts() > 0;
     }
 
-    public function is_word_guessed()
+    public function is_word_guessed(): bool
     {
-        return $this->secret_word == $this->get_guessed_word();
+        return $this->secret_word === $this->get_guessed_word();
     }
 
-    public function guess($letter)
+    public function guess(string $letter): bool
     {
         $this->attempts = $this->attempts - 1;
 
@@ -46,7 +47,7 @@ class Game
         }
     }
 
-    public function get_guessed_word()
+    public function get_guessed_word(): string
     {
         $letters = StringHelper::str_split_unicode($this->secret_word);
         $guessed_word = '';
