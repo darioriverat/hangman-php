@@ -1,0 +1,22 @@
+{
+  "name": "fermius/hangman-php",
+  "description": "The classic hangman game developed in PHP",
+  "license": "MIT",
+  "keywords": [
+    "hangman",
+    "PHP"
+  ],
+  "support": {
+    "issues": "https://github.com/fermius/hangman-php/issues",
+    "source": "https://github.com/fermius/hangman-php"
+  },
+  "authors": [
+    {
+      "name": "Darío Rivera",
+      "email": "fermius.us@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.0"
+  }
+}
