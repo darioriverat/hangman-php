@@ -31,7 +31,7 @@ do {
     echo 'You have ' . (MAX_ATTEMPTS - $attempts - 1) . ' guesses left' . PHP_EOL;
 
     $attempts++;
-} while ($attempts < MAX_ATTEMPTS);
+} while ($attempts < MAX_ATTEMPTS && !is_word_guessed($secret_word, $letters_guessed));
 
 if (is_word_guessed($secret_word, $letters_guessed)) {
     echo 'Congratulations!, you guessed the word' . PHP_EOL;
