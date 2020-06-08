@@ -28,8 +28,16 @@ do {
         echo 'Oops!, that letter is not in the word: ' . get_guessed_word($secret_word, $letters_guessed) . PHP_EOL;
     }
 
+    echo 'You have ' . (MAX_ATTEMPTS - $attempts - 1) . ' guesses left' . PHP_EOL;
+
     $attempts++;
 } while ($attempts < MAX_ATTEMPTS);
+
+if (is_word_guessed($secret_word, $letters_guessed)) {
+    echo 'Congratulations!, you guessed the word' . PHP_EOL;
+} else {
+    echo 'Game over, the word was ' . $secret_word . PHP_EOL;
+}
 
 function str_split_unicode($str) {
     return preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
@@ -48,4 +56,8 @@ function get_guessed_word($secret_word, $letters_guessed) {
     }
 
     return $guessed_word;
+}
+
+function is_word_guessed($secret_word, $letters_guessed) {
+    return $secret_word == get_guessed_word($secret_word, $letters_guessed);
 }
