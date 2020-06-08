@@ -1,7 +1,8 @@
 <?php
 
 if ($argc != 2) {
-    echo 'Wrong parameters count';
+    echo 'Wrong parameters count!' . PHP_EOL;
+    exit();
 }
 
 // get the first command line parameter
