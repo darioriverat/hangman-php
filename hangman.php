@@ -1,5 +1,7 @@
 <?php
 
+use App\Hangman\Game;
+
 include('vendor/autoload.php');
 
 if ($argc != 2) {
@@ -13,7 +15,7 @@ $secret_word = $argv[1];
 echo 'Welcome to the hangman game' . PHP_EOL;
 echo 'The secret word I\'m thinking of has ' . mb_strlen($secret_word) . ' letters' . PHP_EOL;
 
-$game = new \Hangman\Game($secret_word);
+$game = new Game($secret_word);
 
 do {
     echo "Please guess a letter: " . PHP_EOL;
