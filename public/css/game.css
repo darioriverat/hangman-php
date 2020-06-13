@@ -1,0 +1,17 @@
+#guessed_word {
+    font-size: 25px;
+    letter-spacing: 10px;
+}
+#letter-label {
+    margin-right: 10px; font-size: 20px;
+}
+#letter {
+    display: inline-block;
+    width: 65px;
+    border: solid 2px #58b796;
+    padding: 25px 20px;
+    font-size: 20px;
+}
+#btn-guess {
+    padding: 13px 20px;
+}
