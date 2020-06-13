@@ -19,6 +19,26 @@ class Game
         $this->attempts = count(StringHelper::explode_unique($this->secret_word)) + self::MAX_FAILED_ATTEMPTS;
     }
 
+    public function get_secret_word(): string
+    {
+        return $this->secret_word;
+    }
+
+    public function get_letters_guessed(): array
+    {
+        return $this->letters_guessed;
+    }
+
+    public function set_letters_guessed(array $letters_guessed)
+    {
+        $this->letters_guessed = $letters_guessed;
+    }
+
+    public function set_attempts(int $attempts)
+    {
+        $this->attempts = $attempts;
+    }
+
     public function get_remaining_attempts(): int
     {
         return $this->attempts;

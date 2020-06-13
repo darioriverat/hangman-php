@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'GameController@start');
+Route::get('/', 'GameController@start')->name('start');
 Route::post('/', 'GameController@guess')->name('guess');

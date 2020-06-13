@@ -2,57 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Hangman\Game;
+use App\Hangman\GameFlow;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class GameController extends Controller
 {
     public function start()
     {
-        $id = uniqid();
-        $this->generateWord($id);
+        $id = GameFlow::createGame();
+        $game_flow = GameFlow::fromId($id);
+        $remaining_attempts = $game_flow->get_game()->get_remaining_attempts();
+        $secret_word_length = mb_strlen($game_flow->get_game()->get_secret_word());
 
-        return view('game.start', compact('id'));
+        return view('game.start', compact('id', 'remaining_attempts', 'secret_word_length'));
     }
 
     public function guess(Request $request)
     {
         $id = $request->input('id');
         $letter = $request->input('letter') ?? '';
-        $secret_word = Cache::get($this->tag($id));
 
-        $game = new Game($secret_word);
+        $game_flow = GameFlow::fromId($id);
+        $game = $game_flow->get_game();
         $game->guess($letter);
 
-        if (!($game->has_remaining_attempts() && !$game->is_word_guessed())) {
-            return back()->with([
-                'id' => $id,
-                'guessed_word' => $game->get_guessed_word(),
-            ]);
-        }
-
-        $game->guess($letter);
+        $game_flow->update($game);
 
         $guessed_word = $game->get_guessed_word();
+        $remaining_attempts = $game->get_remaining_attempts();
+        $secret_word_length = mb_strlen($game->get_secret_word());
 
-        return view('game.start', compact('id', 'guessed_word'));
-    }
-
-    private function generateWord($id): string
-    {
-        if (!Cache::has($this->tag($id))) {
-            $secret_word = 'Good';
-            Cache::put($this->tag($id), $secret_word);
-        } else {
-            $secret_word = Cache::get($this->tag($id));
+        if (!($game->has_remaining_attempts() && !$game->is_word_guessed())) {
+            $guessed = $game->is_word_guessed();
+            $word = $game->get_secret_word();
+            return view('game.end', compact('id', 'guessed_word', 'remaining_attempts', 'secret_word_length', 'guessed', 'word'));
         }
 
-        return $secret_word;
-    }
-
-    private function tag($id)
-    {
-        return 'secret_word_' . $id;
+        return view('game.start', compact('id', 'guessed_word', 'remaining_attempts', 'secret_word_length'));
     }
 }
