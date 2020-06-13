@@ -14,7 +14,7 @@ class Game
 
     public function __construct(string $secret_word)
     {
-        $this->secret_word = $secret_word;
+        $this->secret_word = trim($secret_word);
         $this->letters_guessed = [];
         $this->attempts = count(StringHelper::explode_unique($this->secret_word)) + self::MAX_FAILED_ATTEMPTS;
     }
