@@ -3,6 +3,7 @@
 namespace App\Hangman;
 
 use App\Hangman\Helpers\StringHelper;
+use App\Word;
 use Illuminate\Support\Facades\Cache;
 
 class GameFlow
@@ -77,7 +78,7 @@ class GameFlow
     private static function generateWord(string $id): string
     {
         if (!Cache::has(self::word_tag($id))) {
-            $secret_word = 'Good';
+            $secret_word = (new Word)->getRandomWord()->word;
             Cache::put(self::word_tag($id), $secret_word);
         } else {
             $secret_word = Cache::get(self::word_tag($id));
