@@ -17,7 +17,8 @@
                     name="letter"
                     id="letter"
                     maxlength="1"
-                    autofocus>
+                    autofocus
+                    required>
 
             <button type="submit" class="btn btn-primary btn-lg mb-2" id="btn-guess">Guess</button>
         </form>
